@@ -4,7 +4,8 @@ import {
     REGISTER_USER,
     LOGOUT_USER,
     AUTH_USER,
-    CHECK_REDUNDANCY,
+    CHECK_USERNAME,
+    CHECK_NICKNAME,
     SAVE_USER_PROFILE
 } from './types'
 
@@ -48,12 +49,22 @@ export function auth() {
     }
 }
 
-export function checkRedundancy(dataToSubmit) {
+export function checkUsername(dataToSubmit) {
     const request = axios.post('/api/users/username-redundancy', dataToSubmit)
         .then(response => response.data)
 
     return {
-        type: CHECK_REDUNDANCY,
+        type: CHECK_USERNAME,
+        payload: request
+    }
+}
+
+export function checkNickname(dataToSubmit) {
+    const request = axios.post('/api/users/nickname-redundancy', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: CHECK_NICKNAME,
         payload: request
     }
 }

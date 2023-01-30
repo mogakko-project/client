@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Autocomplete } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { saveUserProfile } from '../../_actions/user_action'
+import { saveUserProfile, checkNickname } from '../../_actions/user_action'
 import axios from 'axios'
 
 const PageWrap = styled.div`
@@ -22,6 +22,11 @@ const ContentWrap = styled.div`
 
 const Inputs = styled.div`
     margin-bottom: 20px;
+`
+
+const IdWrap = styled.div`
+	display: flex;
+	align-items: center;
 `
 
 function SetProfilePage() {
@@ -42,6 +47,8 @@ function SetProfilePage() {
     const [selectedLocations, setSelectedLocations] = useState([])
     const [selectedOccupations, setSelectedOccupations] = useState([])
     
+	const [redundancyChecked, setRedundancyChecked] = useState(false)
+
     const nicknameChanged = (e) => {
         setNickname(e.target.value)
     }
@@ -58,7 +65,10 @@ function SetProfilePage() {
         setGithubAddress(e.target.value)
     }
 
-    const setProfileHandler = async () => {
+    const submitHandler = async () => {
+        if (!redundancyChecked) {
+			return alert('닉네임 중복확인을 해주세요.')
+		}
         let body = {
             nickname,
             oneLineIntroduction,
@@ -77,6 +87,25 @@ function SetProfilePage() {
 			alert(e.response.data.message)
         }
     }
+
+    const redundancyChecker = async () => {
+		let body = {
+			nickname
+		}
+		try {
+			const res = await dispatch(checkNickname(body))
+			if (res.payload.isExist) {
+				setRedundancyChecked(false)
+				alert('이미 존재하는 닉네임입니다.')
+			}
+			else {
+				setRedundancyChecked(true)
+				alert('사용가능한 닉네임입니다.')
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}
 
     const getValues = async () => {
         try {
@@ -105,7 +134,10 @@ function SetProfilePage() {
         <Typography mb={5}>추후에 내 프로필에서 변경 가능합니다.</Typography>
         <ContentWrap>
             <Inputs>
-                <TextField fullWidth label='닉네임' size='small' onChange={nicknameChanged}/>
+                <IdWrap>
+                    <TextField fullWidth label='닉네임' size='small' onChange={nicknameChanged}/>
+					<Button variant="outlined" sx={{ ml: 2, fontSize: 10, height: 40}} size="small" onClick={redundancyChecker} >중복 확인</Button>
+				</IdWrap>
                 <TextField fullWidth label='한 줄 소개' margin='dense' size='small' onChange={oneLineIntroductionChanged} />
                 <TextField fullWidth label='연락처' margin='dense' size='small' onChange={phoneNumberChanged} />
                 <TextField fullWidth label='깃헙 주소' margin='dense' size='small' onChange={githubAddressChanged} />
@@ -167,7 +199,7 @@ function SetProfilePage() {
                 />
             </Inputs>
             
-            <Button fullWidth variant='contained' onClick={setProfileHandler}>저장</Button>
+            <Button fullWidth variant='contained' onClick={submitHandler}>저장</Button>
         </ContentWrap>
     </PageWrap>
   )

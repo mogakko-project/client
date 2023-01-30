@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch } from 'react-redux'
-import { registerUser, checkRedundancy } from '../../_actions/user_action'
+import { registerUser, checkUsername } from '../../_actions/user_action'
 
 const PageWrap = styled.div`
   	display: flex;
@@ -81,8 +81,7 @@ function RegisterPage() {
 			username
 		}
 		try {
-			const res = await dispatch(checkRedundancy(body))
-			console.log(res)
+			const res = await dispatch(checkUsername(body))
 			if (res.payload.isExist) {
 				setRedundancyChecked(false)
 				alert('이미 존재하는 아이디입니다.')
