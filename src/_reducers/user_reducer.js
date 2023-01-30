@@ -3,7 +3,8 @@ import {
     REGISTER_USER,
     LOGOUT_USER,
     AUTH_USER,
-    CHECK_REDUNDANCY
+    CHECK_REDUNDANCY,
+    SAVE_USER_PROFILE
 } from '../_actions/types'
 
 export default function (state = {}, action) {
@@ -17,6 +18,8 @@ export default function (state = {}, action) {
         case AUTH_USER:
             return { ...state, data: action.payload }
         case CHECK_REDUNDANCY:
+            return { ...state, data: action.payload }
+        case SAVE_USER_PROFILE:
             return { ...state, data: action.payload }
         default:
             return state

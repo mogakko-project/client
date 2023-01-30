@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage/LandingPage'
 import LoginPage from './components/LoginPage/LoginPage'
 import RegisterPage from './components/RegisterPage/RegisterPage'
 import NavBar from './components/NavBar/NavBar'
+import SetProfilePage from './components/SetProfilePage/SetProfilePage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route exact path="/" element = {<LandingPage/>}/>
       <Route exact path="/login" element = {<LoginPage/>}/>
       <Route exact path="/register" element = {<RegisterPage/>}/>
+      <Route exact path="/setProfile" element = {<SetProfilePage/>}/>
     </Routes>
    </BrowserRouter>
   )

@@ -4,7 +4,8 @@ import {
     REGISTER_USER,
     LOGOUT_USER,
     AUTH_USER,
-    CHECK_REDUNDANCY
+    CHECK_REDUNDANCY,
+    SAVE_USER_PROFILE
 } from './types'
 
 export function loginUser(dataToSubmit) {
@@ -53,6 +54,16 @@ export function checkRedundancy(dataToSubmit) {
 
     return {
         type: CHECK_REDUNDANCY,
+        payload: request
+    }
+}
+
+export function saveUserProfile(dataToSubmit, userId) {
+    const request = axios.post('/api/users/' + userId, dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: SAVE_USER_PROFILE,
         payload: request
     }
 }

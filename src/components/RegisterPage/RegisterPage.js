@@ -69,8 +69,8 @@ function RegisterPage() {
 		}
 		try {
 			await dispatch(registerUser(body))
-			alert('회원가입 완료')
-			navigate('/login')
+			alert('회원가입 완료. 상세정보를 입력해주세요.')
+			navigate('/setProfile')
 		} catch (e) {
 			alert(e.response.data.message)
 		}
