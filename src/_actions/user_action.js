@@ -6,10 +6,9 @@ import {
     AUTH_USER,
     CHECK_REDUNDANCY
 } from './types'
-const apiUrl = process.env.REACT_APP_API_URL
 
 export function loginUser(dataToSubmit) {
-    const request = axios.post(apiUrl + '/api/users/login', dataToSubmit, { withCredentials: true })
+    const request = axios.post('/api/users/login', dataToSubmit)
         .then(response => response.data)
 
     return {
@@ -19,7 +18,7 @@ export function loginUser(dataToSubmit) {
 }
 
 export function registerUser(dataToSubmit) {
-    const request = axios.post(apiUrl + '/api/users/register', dataToSubmit)
+    const request = axios.post('/api/users/register', dataToSubmit)
         .then(response => response.data)
 
     return {
@@ -29,7 +28,7 @@ export function registerUser(dataToSubmit) {
 }
 
 export function logoutUser() {
-    const request = axios.post(apiUrl + '/api/users/logout')
+    const request = axios.post('/api/users/logout')
         .then(response => response.data)
 
     return {
@@ -39,7 +38,7 @@ export function logoutUser() {
 }
 
 export function auth() {
-    const request = axios.get(apiUrl + '/api/users/auth')
+    const request = axios.get('/api/users/auth')
         .then(response => response.data)
 
     return {
@@ -49,7 +48,7 @@ export function auth() {
 }
 
 export function checkRedundancy(dataToSubmit) {
-    const request = axios.post(apiUrl + '/api/users/username-redundancy', dataToSubmit)
+    const request = axios.post('/api/users/username-redundancy', dataToSubmit)
         .then(response => response.data)
 
     return {

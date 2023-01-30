@@ -8,10 +8,12 @@ import {
 import LandingPage from './components/LandingPage/LandingPage'
 import LoginPage from './components/LoginPage/LoginPage'
 import RegisterPage from './components/RegisterPage/RegisterPage'
+import NavBar from './components/NavBar/NavBar'
 
 function App() {
   return (
    <BrowserRouter>
+        <NavBar />
     <Routes>
       <Route exact path="/" element = {<LandingPage/>}/>
       <Route exact path="/login" element = {<LoginPage/>}/>
