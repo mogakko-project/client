@@ -98,7 +98,12 @@ function EditProfilePage() {
         try {
             await dispatch(saveUserProfile(body, user.data.userId))
 			alert('저장되었습니다.')
-            navigate ('/')
+            if (location.pathname === '/initProfile') {
+                navigate ('/')
+            }
+            else {
+                navigate('/profile/' + user.data.userId)
+            }
         } catch (e) {
 			alert(e.response.data.message)
         }
