@@ -5,15 +5,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch } from 'react-redux'
-import { registerUser, checkUsername } from '../../_actions/user_action'
+import { registerUser } from '../../_actions/user_action'
+import { checkUsername } from '../../_actions/profile_action'
 
 const PageWrap = styled.div`
   	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	height: 80vh;
+    padding-top: 70px;
 `
 
 const LoginWrap = styled.div`
@@ -70,7 +70,7 @@ function RegisterPage() {
 		try {
 			await dispatch(registerUser(body))
 			alert('회원가입 완료. 상세정보를 입력해주세요.')
-			navigate('/setProfile')
+			navigate('/initProfile')
 		} catch (e) {
 			alert(e.response.data.message)
 		}

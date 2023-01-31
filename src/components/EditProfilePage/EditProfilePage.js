@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { TextField, Button, Typography, Autocomplete } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { saveUserProfile, checkNickname } from '../../_actions/user_action'
+import { saveUserProfile, checkNickname, getUserProfile } from '../../_actions/profile_action'
 import axios from 'axios'
 
 const PageWrap = styled.div`
@@ -12,8 +12,7 @@ const PageWrap = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 90vh;
+    padding-top: 70px;
 `
 
 const ContentWrap = styled.div`
@@ -29,9 +28,10 @@ const IdWrap = styled.div`
 	align-items: center;
 `
 
-function SetProfilePage() {
+function EditProfilePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
     const user = useSelector(state => state.user)
 
     const [nickname, setNickname] = useState('')
@@ -48,8 +48,12 @@ function SetProfilePage() {
     const [selectedOccupations, setSelectedOccupations] = useState([])
     
 	const [redundancyChecked, setRedundancyChecked] = useState(false)
+    const [nicknameHasChanged, setNicknameHasChanged] = useState(false)
+
 
     const nicknameChanged = (e) => {
+        setNicknameHasChanged(true)
+        setRedundancyChecked(false)
         setNickname(e.target.value)
     }
 
@@ -66,9 +70,21 @@ function SetProfilePage() {
     }
 
     const submitHandler = async () => {
-        if (!redundancyChecked) {
+        if (nicknameHasChanged && !redundancyChecked) {
 			return alert('닉네임 중복확인을 해주세요.')
 		}
+        if (!nickname) {
+            return alert('닉네임을 입력해주세요')
+        }
+        if (!oneLineIntroduction) {
+            return alert('한 줄 소개를 입력해주세요.')
+        }
+        if (!phoneNumber) {
+            return alert('전화번호를 입력해주세요.')
+        }
+        if (!githubAddress) {
+            return alert('깃헙 주소를 입력해주세요.')
+        }
         let body = {
             nickname,
             oneLineIntroduction,
@@ -95,7 +111,6 @@ function SetProfilePage() {
 		try {
 			const res = await dispatch(checkNickname(body))
 			if (res.payload.isExist) {
-				setRedundancyChecked(false)
 				alert('이미 존재하는 닉네임입니다.')
 			}
 			else {
@@ -123,30 +138,60 @@ function SetProfilePage() {
         
     }
 
+    const getProfile = async () => {
+        try {
+            const res = await dispatch(getUserProfile(user.data.userId))
+            setNickname(res.payload.nickname)
+            setOneLineIntroduction(res.payload.oneLineIntroduction)
+            setPhoneNumber(res.payload.phoneNumber)
+            setGithubAddress(res.payload.githubAddress)
+            setSelectedLanguages(res.payload.languages)
+            setSelectedLocations(res.payload.locations)
+            setSelectedOccupations(res.payload.occupations)
+        } catch (e) {
+            console.log(e)
+        }
+        
+    }
+
     useEffect(() => {
         getValues()
     }, [])
     
+    useEffect(() => {
+        getProfile()
+        console.log(location)
+    }, [user])
 
   return (
     <PageWrap>
-        <Typography variant="h4">프로필을 완성해주세요.</Typography>
-        <Typography mb={5}>추후에 내 프로필에서 변경 가능합니다.</Typography>
+        {location.pathname === '/initProfile' ? (
+                <>
+                    <Typography variant="h4">프로필을 완성해주세요.</Typography>
+                    <Typography mb={5}>추후에 내 프로필에서 변경 가능합니다.</Typography>
+                </>
+            ) : (
+                <>
+                    <Typography variant="h4">프로필 수정</Typography>
+                </>
+            )
+        }
+        
         <ContentWrap>
             <Inputs>
                 <IdWrap>
-                    <TextField fullWidth label='닉네임' size='small' onChange={nicknameChanged}/>
-					<Button variant="outlined" sx={{ ml: 2, fontSize: 10, height: 40}} size="small" onClick={redundancyChecker} >중복 확인</Button>
+                    <TextField fullWidth label='닉네임' size='small' value={nickname} onChange={nicknameChanged} />
+					<Button disabled={!nicknameHasChanged} variant="outlined" sx={{ ml: 2, fontSize: 10, height: 40}} size="small" onClick={redundancyChecker} >중복 확인</Button>
 				</IdWrap>
-                <TextField fullWidth label='한 줄 소개' margin='dense' size='small' onChange={oneLineIntroductionChanged} />
-                <TextField fullWidth label='연락처' margin='dense' size='small' onChange={phoneNumberChanged} />
-                <TextField fullWidth label='깃헙 주소' margin='dense' size='small' onChange={githubAddressChanged} />
+                <TextField fullWidth label='한 줄 소개' margin='dense' size='small' onChange={oneLineIntroductionChanged} value={oneLineIntroduction} defaultValue={oneLineIntroduction} />
+                <TextField fullWidth label='연락처' margin='dense' size='small' onChange={phoneNumberChanged} value={phoneNumber} defaultValue={phoneNumber} />
+                <TextField fullWidth label='깃헙 주소' margin='dense' size='small' onChange={githubAddressChanged} value={githubAddress} defaultValue={githubAddress} />
                 <Autocomplete
                     multiple
                     id="tags-outlined"
                     options={languages}
                     getOptionLabel={(option) => option.languageName}
-                    // defaultValue={[top100Films[13]]}
+                    isOptionEqualToValue={(option, value) => value.languageId === option.languageId}
                     sx={{ mt: 1 }}
                     renderInput={(params) => (
                     <TextField
@@ -166,7 +211,7 @@ function SetProfilePage() {
                     options={locations.sort((a, b) => -b.lineNumber.localeCompare(a.lineNumber))}
                     groupBy={(option) => option.lineNumber}
                     getOptionLabel={(option) => option.stationName}
-                    // defaultValue={[top100Films[13]]}
+                    isOptionEqualToValue={(option, value) => value.locationId === option.locationId}
                     sx={{ mt: 1 }}
                     renderInput={(params) => (
                     <TextField
@@ -184,7 +229,7 @@ function SetProfilePage() {
                     id="tags-outlined"
                     options={occupations}
                     getOptionLabel={(option) => option.occupationName}
-                    // defaultValue={[top100Films[13]]}
+                    isOptionEqualToValue={(option, value) => value.occupationId === option.occupationId}
                     sx={{ mt: 1 }}
                     renderInput={(params) => (
                     <TextField
@@ -205,4 +250,4 @@ function SetProfilePage() {
   )
 }
 
-export default Auth(SetProfilePage, true)
+export default Auth(EditProfilePage, true)
