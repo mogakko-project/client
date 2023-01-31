@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { TextField, Button, Typography, Autocomplete, Chip } from '@mui/material'
+import { Button, Typography, Chip } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserProfile, saveUserProfile, checkNickname } from '../../_actions/profile_action'
-import axios from 'axios'
+import { getUserProfile } from '../../_actions/profile_action'
 
 const PageWrap = styled.div`
     display: flex;
@@ -63,7 +62,7 @@ function ProfilePage() {
     <PageWrap>
         <ProfileHeader>
             <Typography variant="h4">{profile.nickname}님의 프로필</Typography>
-            {user.data && user.data.userId == userId &&
+            {user.data && user.data.userId === userId &&
                 <Button variant="outlined" size="small" sx={{ ml: 3 }} onClick={editProfile} >수정</Button>
             }
         </ProfileHeader>

@@ -11,6 +11,7 @@ import RegisterPage from './components/RegisterPage/RegisterPage'
 import NavBar from './components/NavBar/NavBar'
 import EditProfilePage from './components/EditProfilePage/EditProfilePage'
 import ProfilePage from './components/ProfilePage/ProfilePage'
+import ProjectPostPage from './components/Posts/ProjectPostPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/initProfile" element = {<EditProfilePage/>}/>
           <Route exact path="/editProfile" element = {<EditProfilePage/>}/>
           <Route exact path="/profile/:userId" element = {<ProfilePage/>}/>
+          <Route exact path="/posts/project" element = {<ProjectPostPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>

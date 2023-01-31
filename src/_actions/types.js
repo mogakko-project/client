@@ -9,3 +9,6 @@ export const CHECK_USERNAME = "check_username"
 export const CHECK_NICKNAME = "check_nickname"
 export const SAVE_USER_PROFILE = "save_user_profile"
 export const GET_USER_PROFILE = "get_user_profile"
+
+// post
+export const GET_POST_OF_TYPE = "get_post_of_type"
