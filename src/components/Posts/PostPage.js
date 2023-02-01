@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Auth from '../../hoc/auth'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
@@ -33,9 +33,10 @@ const RightWrap = styled.div`
     margin-left: 30px;
 `
 
-function ProjectPostPage() {
+function PostPage() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+    let { postType } = useParams()
 
 	const [posts, setPosts] = useState([])
     const [filteredPosts, setFilteredPosts] = useState([])
@@ -46,7 +47,7 @@ function ProjectPostPage() {
 
 	const getPosts = async () => {
 		try {
-			const data = await dispatch(getPostOfType('PROJECT'))
+			const data = await dispatch(getPostOfType(postType))
 			setPosts(data.payload)
             setFilteredPosts(data.payload)
 		} catch (e) {
@@ -55,18 +56,21 @@ function ProjectPostPage() {
 	}
 	useEffect(() => {
 		getPosts()
-	}, [])
+        setSelectedLanguages([])
+        setSelectedLocations([])
+        setSelectedOccupations([])
+	}, [postType])
 
 	const selectHandler = (postId) => {
-		navigate('/posts/' + postId)
+		navigate('/posts/detail/' + postId)
 	}
 
 	
 	return (
 		<TotalWrap>
             <Header>
-                <Typography variant='h3' color="common.white" sx={{ mb: 2, mt: 8, ml: 15 }} >프로젝트</Typography>
-                <Typography variant='h5' color="#A59A9A" sx={{ ml: 15 }}>프로젝트에 참여해보세요.</Typography>
+                <Typography variant='h3' color="common.white" sx={{ mb: 2, mt: 8, ml: 15 }} >{postType === 'PROJECT' ? '프로젝트' : '모각코'}</Typography>
+                <Typography variant='h5' color="#A59A9A" sx={{ ml: 15 }}>{postType === 'PROJECT' ? '프로젝트' : '모각코'}에 참여해보세요.</Typography>
             </Header>
             <ContentWrap>
                 <Filter
@@ -91,4 +95,4 @@ function ProjectPostPage() {
 	)
 }
 
-export default Auth(ProjectPostPage, null)
+export default Auth(PostPage, null)

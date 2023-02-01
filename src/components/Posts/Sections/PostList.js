@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, Typography } from '@mui/material';
 import styled from 'styled-components'
+import { calculateDday } from '../../../CommonFunction'
 
 const PostElement = styled.div`
 
@@ -9,24 +10,19 @@ const PostElement = styled.div`
 const MoreInfo = styled.div`
 
 `
+
 const Above = styled.div`
     display: flex;
 `
+
 const Below = styled.div`
     display: flex;
     margin-top: 5px;
     align-items: center;
     justify-content: space-between;
 `
-const Occupations = styled.div`
-    display: flex;
 
-`
-const Languages = styled.div`
-    display: flex;
-
-`
-const Locations = styled.div`
+const Values = styled.div`
     display: flex;
 
 `
@@ -43,31 +39,33 @@ function PostList({posts, selectHandler}) {
                     <ListItem>
                         <ListItemButton onClick={() => selectHandler(elem.postId)}>
                             <ListItemText primary={elem.title} secondary={elem.nickname}/>
+                            {/* <Typography>{calculateDday(elem.deadline)}</Typography> */}
+                            <Chip label={calculateDday(elem.deadline)} sx={{ ml: 1 }} variant="outlined"  />
                             <MoreInfo>
                                 <Above>
-                                    <Occupations>
+                                    <Values>
                                         {elem.occupations.map((elem, index) => 
                                             <div key={index}>
                                                 <Chip label={elem.occupationName} color="primary" sx={{ ml: 1 }} variant="outlined"  />
                                             </div>
                                         )}
-                                    </Occupations>
-                                    <Languages>
+                                    </Values>
+                                    <Values>
                                         {elem.languages.map((elem, index) => 
                                             <div key={index}>
                                                 <Chip label={elem.languageName} color="success" sx={{ ml: 1 }} variant="outlined"  />
                                             </div>
                                         )}
-                                    </Languages>
+                                    </Values>
                                 </Above>
                                 <Below>
-                                    <Locations>
+                                    <Values>
                                         {elem.locations.map((elem, index) => 
                                             <div key={index}>
                                                 <Chip label={elem.stationName} color="secondary" sx={{ ml: 1 }} variant="outlined"  />
                                             </div>
                                         )}
-                                    </Locations>
+                                    </Values>
                                     <Typography variant="caption" color='#A59A9A' sx={{ ml: 1 }} >{elem.updatedAt.substring(0, 10)} </Typography>
                                 </Below>
                             </MoreInfo>

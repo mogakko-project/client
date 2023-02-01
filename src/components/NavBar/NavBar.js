@@ -14,8 +14,8 @@ function NavBar() {
                 <Typography variant='h5' onClick={() => navigate('/')} >
                     mogakko
                 </Typography>
-                <Typography sx={{ minWidth: 80, ml: 2 }} onClick={() => navigate('/posts/project')} >프로젝트</Typography>
-                <Typography sx={{ minWidth: 80 }} onClick={() => navigate('/posts/mogakko')} >모각코</Typography>
+                <Typography sx={{ minWidth: 80, ml: 2 }} onClick={() => navigate('/posts/PROJECT')} >프로젝트</Typography>
+                <Typography sx={{ minWidth: 80 }} onClick={() => navigate('/posts/MOGAKKO')} >모각코</Typography>
             </ButtonBase>
             {/* <Button onClick={() => navigate('/map')}>map</Button> */}
             <RightMenu/>

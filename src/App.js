@@ -11,7 +11,8 @@ import RegisterPage from './components/RegisterPage/RegisterPage'
 import NavBar from './components/NavBar/NavBar'
 import EditProfilePage from './components/EditProfilePage/EditProfilePage'
 import ProfilePage from './components/ProfilePage/ProfilePage'
-import ProjectPostPage from './components/Posts/ProjectPostPage'
+import PostPage from './components/Posts/PostPage'
+import PostDetailPage from './components/PostDetailPage/PostDetailPage'
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route exact path="/initProfile" element = {<EditProfilePage/>}/>
           <Route exact path="/editProfile" element = {<EditProfilePage/>}/>
           <Route exact path="/profile/:userId" element = {<ProfilePage/>}/>
-          <Route exact path="/posts/project" element = {<ProjectPostPage/>}/>
+          <Route exact path="/posts/:postType" element = {<PostPage/>}/>
+          <Route exact path="/posts/detail/:postId" element = {<PostDetailPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>

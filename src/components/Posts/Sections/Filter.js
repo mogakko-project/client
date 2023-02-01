@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { Autocomplete, TextField, Typography, Button } from '@mui/material';
-import PostList from './PostList';
 
 const FilterWrap = styled.div`
     display: flex;
@@ -11,6 +10,7 @@ const FilterWrap = styled.div`
     min-height: 500px;
     background: #D9D9D9;
     padding: 20px;
+    margin-bottom: 20px;
 `
 
 const Buttons = styled.div`
@@ -59,9 +59,9 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
                 }
                 if (!include) return false;
             }
-            for (var i = 0; i < selectedLocations.length; i++) {
-                var include = false;
-                for (var j = 0; j < post.locations.length; j++) {
+            for (i = 0; i < selectedLocations.length; i++) {
+                include = false;
+                for (j = 0; j < post.locations.length; j++) {
                     if (selectedLocations[i].locationId === post.locations[j].locationId) {
                         include = true;
                         break;
@@ -69,9 +69,9 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
                 }
                 if (!include) return false;
             }
-            for (var i = 0; i < selectedOccupations.length; i++) {
-                var include = false;
-                for (var j = 0; j < post.occupations.length; j++) {
+            for (i = 0; i < selectedOccupations.length; i++) {
+                include = false;
+                for (j = 0; j < post.occupations.length; j++) {
                     if (selectedOccupations[i].occupationId === post.occupations[j].occupationId) {
                         include = true;
                         break;
