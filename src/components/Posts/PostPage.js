@@ -14,6 +14,7 @@ const TotalWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 100px;
 `
 const Header = styled.div`
 	display: flex;
@@ -65,6 +66,9 @@ function PostPage() {
 		navigate('/posts/detail/' + postId)
 	}
 
+    const newPostHandler = () => {
+        navigate('/posts/new')
+    }
 	
 	return (
 		<TotalWrap>
@@ -84,7 +88,7 @@ function PostPage() {
                     setFilteredPosts={setFilteredPosts}
                 />
                 <RightWrap>
-                    <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} >모집하기</Button>
+                    <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={newPostHandler} >모집하기</Button>
                     <PostList
                         posts={filteredPosts}
                         selectHandler={selectHandler}

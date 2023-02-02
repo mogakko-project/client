@@ -13,6 +13,7 @@ import EditProfilePage from './components/EditProfilePage/EditProfilePage'
 import ProfilePage from './components/ProfilePage/ProfilePage'
 import PostPage from './components/Posts/PostPage'
 import PostDetailPage from './components/PostDetailPage/PostDetailPage'
+import NewPostPage from './components/Posts/NewPostPage'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/profile/:userId" element = {<ProfilePage/>}/>
           <Route exact path="/posts/:postType" element = {<PostPage/>}/>
           <Route exact path="/posts/detail/:postId" element = {<PostDetailPage/>}/>
+          <Route exact path="/posts/new" element = {<NewPostPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>

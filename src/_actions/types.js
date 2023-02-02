@@ -11,6 +11,7 @@ export const SAVE_USER_PROFILE = "save_user_profile"
 export const GET_USER_PROFILE = "get_user_profile"
 
 // post
+export const ADD_POST = "add_post"
 export const GET_POST_OF_TYPE = "get_post_of_type"
 export const GET_POST = "get_post"
 

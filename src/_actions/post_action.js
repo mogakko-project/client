@@ -1,8 +1,20 @@
 import axios from 'axios'
 import {
+    ADD_POST,
     GET_POST_OF_TYPE,
     GET_POST
 } from './types'
+
+export function addPost(dataToSubmit) {
+    const request = axios.post('/api/posts', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: ADD_POST,
+        payload: request
+    }
+}
+
 
 export function getPostOfType(postType) {
     const request = axios.get('/api/posts/type/' + postType)

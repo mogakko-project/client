@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Avatar, Typography, Button } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { getPost } from '../../_actions/post_action'
 import { CalendarViewDay } from '@mui/icons-material'
 import Comments from './Sections/Comments'
@@ -64,6 +65,12 @@ const Term = styled.div`
     margin-top: 10px;
 `
 
+const GoBack = styled.div`
+    display: flex;
+    cursor: pointer;
+    width: fit-content;
+`
+
 function PostDetailPage() {
     const dispatch = useDispatch()
 	const navigate = useNavigate()
@@ -111,7 +118,10 @@ function PostDetailPage() {
     <TotalWrap>
         <PostWrap>
             <PostHeader>
-                <Typography color='#A59A9A' >{post.type === 'PROJECT' ? '프로젝트' : '모각코'}</Typography>
+                <GoBack onClick={() => navigate('/posts/' + post.type)} >
+                    <ArrowBackIosNewIcon fontSize="small" sx={{ color: '#A59A9A' }} />
+                    <Typography color='#A59A9A' >{post.type === 'PROJECT' ? '프로젝트' : '모각코'}</Typography>
+                </GoBack>
                 <TitleWrap>
                     <Typography variant='h3' >{post.title}</Typography>
                     <Chip label={dday} sx={{ ml: 2 }} />
@@ -167,7 +177,9 @@ function PostDetailPage() {
             <Content>
                 <Typography>{post.content}</Typography>
             </Content>
-            <Button variant="contained" style={{backgroundColor:'#777777'}} sx={{ mt: 3, width: 100 }} onClick={applyHandler} >지원하기</Button>
+            {user && user.data.userId !== post.userId && 
+                <Button variant="contained" style={{backgroundColor:'#777777'}} sx={{ mt: 3, width: 100 }} onClick={applyHandler} >지원하기</Button>
+            }
         </PostWrap>
         <Comments postId={postId}/>
     </TotalWrap>
