@@ -14,6 +14,7 @@ import ProfilePage from './components/ProfilePage/ProfilePage'
 import PostPage from './components/Posts/PostPage'
 import PostDetailPage from './components/PostDetailPage/PostDetailPage'
 import NewPostPage from './components/Posts/NewPostPage'
+import GroupDetailPage from './Groups/GroupDetailPage/GroupDetailPage'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/posts/:postType" element = {<PostPage/>}/>
           <Route exact path="/posts/detail/:postId" element = {<PostDetailPage/>}/>
           <Route exact path="/posts/new" element = {<NewPostPage/>}/>
+          <Route exact path="/groups/detail/:groupId" element = {<GroupDetailPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>
