@@ -20,14 +20,19 @@ export const ADD_COMMENT = "add_comment"
 export const GET_COMMENTS_OF_POST = "get_comments_of_post"
 export const DELETE_COMMENT = "delete_comment"
 
-// group
+// group_members
 export const GET_GROUP_MEMBERS = "get_group_members"
+
+// group
 export const GET_GROUP_LIST_OF_USER = "get_group_list_of_user"
 export const RELEASE_GROUP_MEMBER = "release_group_member"
 export const GET_GROUP_STATUS = "get_group_status"
 export const SET_GROUP_STATUS = "set_group_status"
 
+// group_applicants
 export const APPLY_FOR_ADMISSION = "apply_for_admission"
+export const GET_APPLICANTS_OF_GROUP = "get_applicants_of_group"
+export const ACCEPT_APPLICANT_OF_GROUP = "accept_applicant_of_group"
 
 // meeting
 export const CREATE_GROUP_MEETING = "create_group_meeting"

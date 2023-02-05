@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Auth from '../../hoc/auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button } from '@mui/material';
 import GroupMembers from './Sections/GroupMembers'
 import GroupMeeting from './Sections/GroupMeeting'
+import GroupManaging from './Sections/GroupManaging'
+import { SatelliteAltTwoTone } from '@mui/icons-material'
 
 const TotalWrap = styled.div`
     display: flex;
@@ -19,7 +21,7 @@ const Layout = styled.div`
     flex-direction: column;
     align-items: center;
     width: 1000px;
-    padding-top: 100px;
+    padding-top: 50px;
 `
 
 const Posts = styled.div`
@@ -30,19 +32,20 @@ function GroupDetailPage() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
     let { groupId } = useParams()
-    
-	const [posts, setPosts] = useState([])
-    
-	useEffect(() => {
-        
-	}, [])
-    
+
+    const user = useSelector(state => state.user.data)
+    const groupMembers = useSelector(state => state.groupMembers.data)
+
 	return (
 		<TotalWrap>
             <Layout>
+                {groupMembers && user && groupMembers.some((member) => member.isMaster && member.memberId === user.userId) &&
+                    <GroupManaging groupId={groupId}/>
+                }
                 <Typography variant='h4' >그룹</Typography>
                 <GroupMembers groupId={groupId}/>
                 <GroupMeeting groupId={groupId}/>
+
                 <Posts>
                     
                 </Posts>

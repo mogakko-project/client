@@ -8,7 +8,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { getPost } from '../../_actions/post_action'
 import { CalendarViewDay } from '@mui/icons-material'
 import Comments from './Sections/Comments'
-import { applyForAdmission } from '../../_actions/group_action'
+import { applyForAdmission } from '../../_actions/group_applicants_action'
 import { calculateDday } from '../../CommonFunction'
 
 const TotalWrap = styled.div`
@@ -97,12 +97,7 @@ function PostDetailPage() {
 
     const applyHandler = async () => {
         try {
-            let body = {
-                groupId: post.groupId,
-                userId: user.data.userId
-            }
-            const res = await dispatch(applyForAdmission(body))
-            console.log(res)
+            const res = await dispatch(applyForAdmission(post.groupId, user.data.userId))
             alert('지원하였습니다.')
         } catch (e) {
             alert(e.response.data.message)

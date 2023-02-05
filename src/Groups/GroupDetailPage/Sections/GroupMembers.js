@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Autocomplete, TextField, Typography, Button, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getGroupMembers } from '../../../_actions/group_action';
+import { getGroupMembers } from '../../../_actions/group_members_action';
+import GradeIcon from '@mui/icons-material/Grade';
 
 const MembersWrap = styled.div`
     display: grid;
@@ -57,6 +58,7 @@ export default function GroupMembers({ groupId }) {
             <MemberElem key={index} onClick={() => memberClickHandler(elem.memberId)}>
                 <Avatar sx={{ width: 32, height: 32, mr: 1 }} />
                 {elem.nickname}
+                {elem.isMaster && <GradeIcon />}
             </MemberElem>
         ))}
     </MembersWrap>

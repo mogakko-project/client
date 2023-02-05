@@ -74,7 +74,7 @@ function MeetingForm({ groupId, getMeetings }) {
 
     return (
         <TotalWrap>
-            <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={handleOpen} sx={{ ml: 'auto', mr: 5, mt: 1 }}>모임 생성</Button>
+            <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={handleOpen} sx={{ ml: 'auto', mt: 1 }}>모임 생성</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

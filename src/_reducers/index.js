@@ -4,6 +4,8 @@ import profile from './profile_reducer'
 import post from './post_reducer'
 import comment from './comment_reducer'
 import group from './group_reducer'
+import groupMembers from './group_members_reducer'
+import groupApplicants from './group_applicants_reducer'
 import meeting from './meeting_reducer'
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
     post,
     comment,
     group,
+    groupMembers,
+    groupApplicants,
     meeting
 })
 

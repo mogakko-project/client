@@ -139,7 +139,7 @@ export default function GroupMeeting({ groupId }) {
                         <Buttons>
                             <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={() => attendHandler(true)} >참석</Button>
                             <Button disabled={meetings[meetingIndex]?.attendanceList.some((value, index) =>
-                                value.memberId === user.data.userId && value.isMaster
+                                value.memberId === user.data?.userId && value.isMaster
                             )} variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={() => attendHandler(false)} sx={{ ml: 1 }} >불참석</Button>
                         </Buttons>
                     </BasicInfoAndButtons>
@@ -196,5 +196,11 @@ export default function GroupMeeting({ groupId }) {
         </MeetingWrap>
         <MeetingForm groupId={groupId} getMeetings={getMeetings}/>
     </TotalWrap>
+  )
+  else return (
+    <div style={{ 'margin-top': '30px'}}>
+        <Typography>아직 모임이 없습니다.</Typography>
+        <MeetingForm groupId={groupId} getMeetings={getMeetings}/>
+    </div>
   )
 }
