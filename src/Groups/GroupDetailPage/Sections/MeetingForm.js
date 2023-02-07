@@ -56,6 +56,15 @@ function MeetingForm({ groupId, getMeetings }) {
     }
 
     const createHandler = async () => {
+        if (!date) {
+            return alert('날짜를 입력해주세요')
+        }
+        if (!time) {
+            return alert('시간을 입력해주세요')
+        }
+        if (!place) {
+            return alert('장소를 입력해주세요')
+        }
         let body = {
             memberId: user.data.userId,
             date,

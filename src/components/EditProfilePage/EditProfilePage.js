@@ -165,7 +165,6 @@ function EditProfilePage() {
     
     useEffect(() => {
         getProfile()
-        console.log(location)
     }, [user])
 
   return (

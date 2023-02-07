@@ -7,7 +7,7 @@ import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton
 import GroupMembers from './Sections/GroupMembers'
 import GroupMeeting from './Sections/GroupMeeting'
 import GroupManaging from './Sections/GroupManaging'
-import { SatelliteAltTwoTone } from '@mui/icons-material'
+import GroupPosts from './Sections/GroupPosts'
 
 const TotalWrap = styled.div`
     display: flex;
@@ -22,10 +22,6 @@ const Layout = styled.div`
     align-items: center;
     width: 1000px;
     padding-top: 50px;
-`
-
-const Posts = styled.div`
-
 `
 
 function GroupDetailPage() {
@@ -45,10 +41,7 @@ function GroupDetailPage() {
                 <Typography variant='h4' >그룹</Typography>
                 <GroupMembers groupId={groupId}/>
                 <GroupMeeting groupId={groupId}/>
-
-                <Posts>
-                    
-                </Posts>
+                <GroupPosts groupId={groupId}/>
             </Layout>
 		</TotalWrap>
 	)

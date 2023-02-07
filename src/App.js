@@ -13,8 +13,10 @@ import EditProfilePage from './components/EditProfilePage/EditProfilePage'
 import ProfilePage from './components/ProfilePage/ProfilePage'
 import PostPage from './components/Posts/PostPage'
 import PostDetailPage from './components/PostDetailPage/PostDetailPage'
-import NewPostPage from './components/Posts/NewPostPage'
+import PostFormPage from './components/Posts/PostFormPage'
 import GroupDetailPage from './Groups/GroupDetailPage/GroupDetailPage'
+import StudyPostFormPage from './Groups/StudyPostPage/StudyPostFormPage'
+import StudyPostsDetailPage from './Groups/StudyPostPage/StudyPostDetailPage'
 
 function App() {
   return (
@@ -30,8 +32,11 @@ function App() {
           <Route exact path="/profile/:userId" element = {<ProfilePage/>}/>
           <Route exact path="/posts/:postType" element = {<PostPage/>}/>
           <Route exact path="/posts/detail/:postId" element = {<PostDetailPage/>}/>
-          <Route exact path="/posts/new" element = {<NewPostPage/>}/>
+          <Route exact path="/posts/new" element = {<PostFormPage/>}/>
+          <Route exact path="/posts/edit/:postId" element = {<PostFormPage/>}/>
           <Route exact path="/groups/detail/:groupId" element = {<GroupDetailPage/>}/>
+          <Route exact path="/groups/:groupId/posts/study/new" element = {<StudyPostFormPage/>}/>
+          <Route exact path="/posts/study/detail/:postId" element = {<StudyPostsDetailPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>

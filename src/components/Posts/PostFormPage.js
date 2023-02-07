@@ -6,10 +6,12 @@ import styled from 'styled-components'
 import { List, ListItem, ListItemText, ListItemButton, Divider, Autocomplete, Chip, IconButton, Link, Typography, Button, TextField, FormControl, Select, MenuItem, InputLabel  } from '@mui/material';
 import { LocalizationProvider, DatePicker, DesktopDatePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { addPost, getPostOfType } from '../../_actions/post_action'
+import { addPost, updatePost, getPost, getPostOfType } from '../../_actions/post_action'
 import dayjs from "dayjs"
 import axios from 'axios'
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { setGroupStatus } from '../../_actions/group_action';
+
 const TotalWrap = styled.div`
     display: flex;
     flex-direction: column;
@@ -41,10 +43,11 @@ const Buttons = styled.div`
     margin-top: 10px;
 `
 
-function PostPage() {
+function PostFormPage({ test }) {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
     const user = useSelector(state => state.user)
+    let { postId } = useParams()
 
     const [type, setType] = useState('')
     const [term, setTerm] = useState('')
@@ -64,7 +67,7 @@ function PostPage() {
         try {
             const languagesResult = await axios.get('/api/languages')
             setLanguages(languagesResult.data.languages)
-            
+
             const locationsResult = await axios.get('/api/locations')
             setLocations(locationsResult.data.locations)
             
@@ -75,8 +78,27 @@ function PostPage() {
         }
     }
 
+    const fetchPost = async () => {
+        try {
+            const res = await dispatch(getPost(postId))
+            setType(res.payload.type)
+            setTerm(res.payload.term)
+            setDeadline(res.payload.deadline.substring(0, 10))
+            setTitle(res.payload.title)
+            setContent(res.payload.content)
+            setSelectedLanguages(res.payload.languages)
+            setSelectedLocations(res.payload.locations)
+            setSelectedOccupations(res.payload.occupations)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         getValues()
+        if (postId !== undefined) {
+            fetchPost()
+        }
     }, [])
 
     const typeChanged = (e) => {
@@ -130,11 +152,24 @@ function PostPage() {
             locations: selectedLocations,
             occupations: selectedOccupations
         }
-        
+
+        let statusBody = {
+            groupStatus: 'RECRUIT'
+        }
         try {
-            const res = await dispatch(addPost(body))
-			alert('저장되었습니다.')
-            navigate('/posts/detail/' + res.payload.postId)
+            if (postId !== undefined) {  // 게시글 수정
+                const res = await dispatch(updatePost(body, postId))
+                alert('게시글을 수정하였습니다. 인원을 추가모집합니다.')
+
+                await dispatch(setGroupStatus(statusBody, res.payload.groupId))
+
+                navigate('/groups/detail/' + res.payload.groupId)
+            }
+            else {
+                const res = await dispatch(addPost(body))
+                alert('저장되었습니다.')
+                navigate('/posts/detail/' + res.payload.postId)
+            }
         } catch (e) {
 			alert(e.response.data.message)
         }
@@ -150,14 +185,14 @@ function PostPage() {
                 <PropertyLine>
                     <FormControl sx={{ width: '48%' }} >
                         <InputLabel id="demo-simple-select-label">게시글 타입</InputLabel>
-                        <Select value={type} label="게시글 타입" labelId="test-select-label" onChange={typeChanged}>
+                        <Select value={type || ''} label="게시글 타입" labelId="test-select-label" onChange={typeChanged}>
                             <MenuItem value={'PROJECT'}>프로젝트</MenuItem>
                             <MenuItem value={'MOGAKKO'}>모각코</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl variant={type === 'MOGAKKO' ? 'outlined' : 'filled' } sx={{ width: '48%', marginLeft: 'auto' }} >
                         <InputLabel id="demo-simple-select-label">기간</InputLabel>
-                        <Select disabled={type !== 'MOGAKKO'} value={term} label="기간" labelId="test-select-label" onChange={termChanged}>
+                        <Select disabled={type !== 'MOGAKKO'} value={term || ''} label="기간" labelId="test-select-label" onChange={termChanged}>
                             <MenuItem disabled={type === 'MOGAKKO'} value='' >
                                 <em>None</em>
                             </MenuItem>
@@ -240,8 +275,8 @@ function PostPage() {
             <TitleAndContent>
                 <Typography variant='h5' >설명해주세요.</Typography>
                 <Divider sx={{ mt: 2 }} />
-                <TextField fullWidth label='제목' onChange={titleChanged} sx={{ mt: '30px' }}></TextField>
-                <TextField fullWidth label='내용' multiline rows={10} onChange={contentChanged} sx={{ mt: '20px' }}></TextField>
+                <TextField fullWidth label='제목' value={title || ""} onChange={titleChanged} sx={{ mt: '30px' }}></TextField>
+                <TextField fullWidth label='내용' value={content || ""} multiline rows={10} onChange={contentChanged} sx={{ mt: '20px' }}></TextField>
                 <Buttons>
                     <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} sx={{ ml: 'auto' }} onClick={() => navigate(-1)}>취소</Button>
                     <Button variant="contained" style={{backgroundColor:'#777777'}} sx={{ ml: 1 }} onClick={submitHandler}>글 등록</Button>
@@ -251,4 +286,4 @@ function PostPage() {
 	)
 }
 
-export default Auth(PostPage, true)
+export default Auth(PostFormPage, true)

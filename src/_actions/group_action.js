@@ -3,7 +3,8 @@ import {
     GET_GROUP_LIST_OF_USER,
     RELEASE_GROUP_MEMBER,
     GET_GROUP_STATUS,
-    SET_GROUP_STATUS
+    SET_GROUP_STATUS,
+    GET_POSTID_OF_GROUP
 } from './types'
 
 // group
@@ -43,6 +44,16 @@ export function setGroupStatus(dataToSubmit, groupId) {
 
     return {
         type: SET_GROUP_STATUS,
+        payload: request
+    }
+}
+
+export function getPostIdOfGroup(groupId) {
+    const request = axios.get('/api/groups/' + groupId)
+        .then(response => response.data)
+
+    return {
+        type: GET_POSTID_OF_GROUP,
         payload: request
     }
 }

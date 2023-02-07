@@ -12,8 +12,10 @@ export const GET_USER_PROFILE = "get_user_profile"
 
 // post
 export const ADD_POST = "add_post"
-export const GET_POST_OF_TYPE = "get_post_of_type"
+export const UPDATE_POST = "update_post"
 export const GET_POST = "get_post"
+export const GET_POST_OF_USER = "get_post_of_user"
+export const GET_POST_OF_TYPE = "get_post_of_type"
 
 // comment
 export const ADD_COMMENT = "add_comment"
@@ -28,6 +30,7 @@ export const GET_GROUP_LIST_OF_USER = "get_group_list_of_user"
 export const RELEASE_GROUP_MEMBER = "release_group_member"
 export const GET_GROUP_STATUS = "get_group_status"
 export const SET_GROUP_STATUS = "set_group_status"
+export const GET_POSTID_OF_GROUP = "get_postid_of_group"
 
 // group_applicants
 export const APPLY_FOR_ADMISSION = "apply_for_admission"

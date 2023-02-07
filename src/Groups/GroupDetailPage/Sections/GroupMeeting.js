@@ -72,7 +72,6 @@ export default function GroupMeeting({ groupId }) {
         try {
             const res = await dispatch(getGroupMeetingList(groupId))
             setMeetings(res.payload)
-            console.log(res)
         } catch (e) {
             console.log(e)
         }
@@ -198,7 +197,7 @@ export default function GroupMeeting({ groupId }) {
     </TotalWrap>
   )
   else return (
-    <div style={{ 'margin-top': '30px'}}>
+    <div style={{ 'marginTop': '30px'}}>
         <Typography>아직 모임이 없습니다.</Typography>
         <MeetingForm groupId={groupId} getMeetings={getMeetings}/>
     </div>

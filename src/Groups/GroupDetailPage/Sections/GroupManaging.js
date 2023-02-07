@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { Autocomplete, TextField, Typography, Button, Avatar, Modal, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getGroupStatus, setGroupStatus } from '../../../_actions/group_action';
+import { getGroupStatus, getPostIdOfGroup, setGroupStatus } from '../../../_actions/group_action';
 import { getApplicantsOfGroup, acceptApplicantOfGroup } from '../../../_actions/group_applicants_action';
+import { PhonelinkSetupOutlined } from '@mui/icons-material';
 
 const Buttons = styled.div`
     display: flex;
@@ -76,13 +77,13 @@ export default function GroupManaging({ groupId }) {
     const handleClose = () => setOpen(false);
 
     const changeGroupStatusHandler = async (groupStatus) => {
-        console.log(groupStatus)
         let body = {
             groupStatus
         }
         try {
             const res = await dispatch(setGroupStatus(body, groupId))
             setStatus(res.payload.groupStatus)
+            alert('모집 마감하였습니다.')
         } catch (e) {
 			alert(e.response.data.message)
         }
@@ -100,13 +101,23 @@ export default function GroupManaging({ groupId }) {
         }
     }
 
+    const recruitHandler = async () => {
+        try {
+            const res = await dispatch(getPostIdOfGroup(groupId))
+            alert('추가 모집하기 위해 게시글을 수정해주세요.')
+            navigate('/posts/edit/' + res.payload.postId)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
   return (
     <Buttons>
         {status === 'RECRUIT' &&
             <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={() => changeGroupStatusHandler('END_RECRUIT')} >모집 마감</Button>
         }
         {status === 'END_RECRUIT' &&
-            <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={() => navigate('/posts/new')} >추가 모집</Button>
+            <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={recruitHandler} >추가 모집</Button>
         }
         {status !== 'END_GROUP' && 
             <>

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import {
     ADD_POST,
-    GET_POST_OF_TYPE,
-    GET_POST
+    UPDATE_POST,
+    GET_POST,
+    GET_POST_OF_USER,
+    GET_POST_OF_TYPE
 } from './types'
 
 export function addPost(dataToSubmit) {
@@ -15,13 +17,12 @@ export function addPost(dataToSubmit) {
     }
 }
 
-
-export function getPostOfType(postType) {
-    const request = axios.get('/api/posts/type/' + postType)
+export function updatePost(dataToSubmit, postId) {
+    const request = axios.post('/api/posts/' + postId, dataToSubmit)
         .then(response => response.data)
 
     return {
-        type: GET_POST_OF_TYPE,
+        type: UPDATE_POST,
         payload: request
     }
 }
@@ -32,6 +33,26 @@ export function getPost(postId) {
 
     return {
         type: GET_POST,
+        payload: request
+    }
+}
+
+export function getPostOfUser(userId) {
+    const request = axios.get('/api/users/' + userId + '/posts')
+        .then(response => response.data)
+
+    return {
+        type: GET_POST_OF_USER,
+        payload: request
+    }
+}
+
+export function getPostOfType(postType) {
+    const request = axios.get('/api/posts/type/' + postType)
+        .then(response => response.data)
+
+    return {
+        type: GET_POST_OF_TYPE,
         payload: request
     }
 }
