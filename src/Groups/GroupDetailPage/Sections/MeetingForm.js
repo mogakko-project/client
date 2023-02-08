@@ -30,7 +30,7 @@ const style = {
     p: 4,
 };
 
-function MeetingForm({ groupId, getMeetings }) {
+function MeetingForm({ groupId, getMeetings, status }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
 
@@ -83,7 +83,9 @@ function MeetingForm({ groupId, getMeetings }) {
 
     return (
         <TotalWrap>
-            <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={handleOpen} sx={{ ml: 'auto', mt: 1 }}>모임 생성</Button>
+            {status !== 'END_GROUP' &&
+                <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={handleOpen} sx={{ ml: 'auto' }}>모임 생성</Button>
+            }
             <Modal
                 open={open}
                 onClose={handleClose}

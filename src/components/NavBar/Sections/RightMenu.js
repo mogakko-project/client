@@ -35,6 +35,10 @@ function RightMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const myGroupClicked = () => {
+        navigate('/myGroups')
+        handleClose()
+    }
     const profileClicked = () => {
         navigate('/profile/' + user.data.userId)
         handleClose()
@@ -90,8 +94,11 @@ function RightMenu() {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
+                    <MenuItem onClick={myGroupClicked}>
+                        내 그룹
+                    </MenuItem>
                     <MenuItem onClick={profileClicked}>
-                        <Avatar /> Profile
+                        <Avatar /> 프로필
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={logoutHandler}>

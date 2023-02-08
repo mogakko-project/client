@@ -16,6 +16,7 @@ export const UPDATE_POST = "update_post"
 export const GET_POST = "get_post"
 export const GET_POST_OF_USER = "get_post_of_user"
 export const GET_POST_OF_TYPE = "get_post_of_type"
+export const GET_STUDY_POST_OF_GROUP = "get_study_post_of_group"
 
 // comment
 export const ADD_COMMENT = "add_comment"
@@ -42,3 +43,9 @@ export const CREATE_GROUP_MEETING = "create_group_meeting"
 export const GET_GROUP_MEETING_LIST = "get_group_meeting_list"
 export const DELETE_GROUP_MEETING = "delete_group_meeting"
 export const SET_MEETING_ATTENDANCE = "set_meeting_attendance"
+
+// evaluation
+export const ADD_EVALUATION = "add_evaluation"
+export const GET_EVALUATION = "get_evaluation"
+export const DELETE_EVALUATION = "delete_evaluation"
+export const UPDATE_EVALUATION = "update_evaluation"

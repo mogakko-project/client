@@ -13,12 +13,17 @@ import MeetingForm from './MeetingForm';
 const TotalWrap = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
+`
+
+const TopWrap = styled.div`
+    display: flex;
+    align-items: center;
 `
 
 const MeetingWrap = styled.div`
     display: flex;
-    margin-top: 50px;
-    align-items: center;
+    margin-top: 10px;
 `
 
 const MeetingBox = styled.div`
@@ -59,14 +64,13 @@ const MenuWrap = styled.div`
     flex-direction: row-reverse;
 `
 
-export default function GroupMeeting({ groupId }) {
+export default function GroupMeeting({ groupId, status }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
 
     const [meetings, setMeetings] = useState([])
     const [meetingIndex, setMeetingIndex] = useState(0)
-    const [modalOpen, setModalOpen] = useState(false);
     
     const getMeetings = async () => {
         try {
@@ -124,6 +128,10 @@ export default function GroupMeeting({ groupId }) {
 
     if (meetings.length !== 0) return (
     <TotalWrap>
+        <TopWrap>
+            <Typography variant='h4' style={{ marginRight: '20px'}}>모임</Typography>
+            <MeetingForm groupId={groupId} getMeetings={getMeetings} status={status}/>
+        </TopWrap>
         <MeetingWrap>
             <IconButton disabled={meetingIndex === 0} onClick={() => indexHandler(-1)} sx={{ cursor: 'pointer' }} >
                 <ArrowBackIosNewIcon fontSize='large' />
@@ -193,13 +201,15 @@ export default function GroupMeeting({ groupId }) {
                 <ArrowForwardIosIcon fontSize='large' />
             </IconButton>
         </MeetingWrap>
-        <MeetingForm groupId={groupId} getMeetings={getMeetings}/>
     </TotalWrap>
   )
   else return (
-    <div style={{ 'marginTop': '30px'}}>
+    <TotalWrap>
+        <TopWrap>
+            <Typography variant='h4' style={{ marginRight: '20px'}}>모임</Typography>
+            <MeetingForm groupId={groupId} getMeetings={getMeetings} status={status}/>
+        </TopWrap>
         <Typography>아직 모임이 없습니다.</Typography>
-        <MeetingForm groupId={groupId} getMeetings={getMeetings}/>
-    </div>
+    </TotalWrap>
   )
 }

@@ -4,6 +4,7 @@ import {
     GET_POST,
     GET_POST_OF_USER,
     GET_POST_OF_TYPE,
+    GET_STUDY_POST_OF_GROUP
 } from '../_actions/types'
 
 export default function (state = {}, action) {
@@ -17,6 +18,8 @@ export default function (state = {}, action) {
         case GET_POST_OF_USER:
             return { ...state, data: action.payload }
         case GET_POST_OF_TYPE:
+            return { ...state, data: action.payload }
+        case GET_STUDY_POST_OF_GROUP:
             return { ...state, data: action.payload }
         default:
             return state

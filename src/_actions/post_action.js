@@ -4,7 +4,8 @@ import {
     UPDATE_POST,
     GET_POST,
     GET_POST_OF_USER,
-    GET_POST_OF_TYPE
+    GET_POST_OF_TYPE,
+    GET_STUDY_POST_OF_GROUP
 } from './types'
 
 export function addPost(dataToSubmit) {
@@ -53,6 +54,16 @@ export function getPostOfType(postType) {
 
     return {
         type: GET_POST_OF_TYPE,
+        payload: request
+    }
+}
+
+export function getStudyPostsOfGroup(groupId) {
+    const request = axios.get('/api/groups/' + groupId + '/posts/type/study')
+        .then(response => response.data)
+
+    return {
+        type: GET_STUDY_POST_OF_GROUP,
         payload: request
     }
 }

@@ -38,27 +38,12 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-export default function GroupManaging({ groupId }) {
+export default function GroupManaging({ groupId, status, setStatus }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
     const [open, setOpen] = useState(false)
     const [applicants, setApplicants] = useState([])
-    const [status, setStatus] = useState('')
-
-    const fetchGroupStatus = async () => {
-        try {
-            const res = await dispatch(getGroupStatus(groupId))
-            setStatus(res.payload.groupStatus)
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    useEffect(() => {
-        fetchGroupStatus()
-    }, [])
-    
 
 
     const getApplicants = async () => {
@@ -84,6 +69,7 @@ export default function GroupManaging({ groupId }) {
             const res = await dispatch(setGroupStatus(body, groupId))
             setStatus(res.payload.groupStatus)
             alert('모집 마감하였습니다.')
+            // location.reload()
         } catch (e) {
 			alert(e.response.data.message)
         }
@@ -96,6 +82,12 @@ export default function GroupManaging({ groupId }) {
             }
             const res = await dispatch(acceptApplicantOfGroup(body, groupId, userId))
             getApplicants()
+            if (accept === true) {
+                alert('승인하였습니다.')
+            }
+            else {
+                alert('거절하였습니다.')
+            }
         } catch (e) {
             console.log(e)
         }
@@ -111,8 +103,18 @@ export default function GroupManaging({ groupId }) {
         }
     }
 
+    const postCheckHandler = async () => {
+        try {
+            const res = await dispatch(getPostIdOfGroup(groupId))
+            navigate('/posts/detail/' + res.payload.postId)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
   return (
     <Buttons>
+        <Button variant="contained" style={{backgroundColor:'#C5C0C0', marginRight: '5px' }} onClick={postCheckHandler} >게시글 확인</Button>
         {status === 'RECRUIT' &&
             <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={() => changeGroupStatusHandler('END_RECRUIT')} >모집 마감</Button>
         }

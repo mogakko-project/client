@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../_actions/profile_action'
+import Evaluations from './Sections/Evaluations'
 
 const PageWrap = styled.div`
     display: flex;
@@ -57,12 +58,11 @@ function ProfilePage() {
         navigate('/editProfile')
     }
 
-
   return (
     <PageWrap>
         <ProfileHeader>
             <Typography variant="h4">{profile.nickname}님의 프로필</Typography>
-            {user.data && user.data.userId === userId &&
+            {user.data?.userId == userId &&
                 <Button variant="outlined" size="small" sx={{ ml: 3 }} onClick={editProfile} >수정</Button>
             }
         </ProfileHeader>
@@ -85,7 +85,7 @@ function ProfilePage() {
                     <Chip key={index} sx={{ mx: 1 }} label={occupation.occupationName} variant="outlined" />
                 )}
             </BasicInfoWrap>
-            
+            <Evaluations userId={userId}/>
         </ContentWrap>
     </PageWrap>
   )

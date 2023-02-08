@@ -7,6 +7,7 @@ import group from './group_reducer'
 import groupMembers from './group_members_reducer'
 import groupApplicants from './group_applicants_reducer'
 import meeting from './meeting_reducer'
+import evaluation from './evaluation_reducer'
 
 const rootReducer = combineReducers({
     user,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     group,
     groupMembers,
     groupApplicants,
-    meeting
+    meeting,
+    evaluation
 })
 
 export default rootReducer

@@ -17,6 +17,7 @@ import PostFormPage from './components/Posts/PostFormPage'
 import GroupDetailPage from './Groups/GroupDetailPage/GroupDetailPage'
 import StudyPostFormPage from './Groups/StudyPostPage/StudyPostFormPage'
 import StudyPostsDetailPage from './Groups/StudyPostPage/StudyPostDetailPage'
+import MyGroupsPage from './components/MyGroupsPage/MyGroupsPage'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/groups/detail/:groupId" element = {<GroupDetailPage/>}/>
           <Route exact path="/groups/:groupId/posts/study/new" element = {<StudyPostFormPage/>}/>
           <Route exact path="/posts/study/detail/:postId" element = {<StudyPostsDetailPage/>}/>
+          <Route exact path="/myGroups" element = {<MyGroupsPage/>}/>
         </Routes>
       </div>
    </BrowserRouter>

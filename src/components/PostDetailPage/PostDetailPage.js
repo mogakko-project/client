@@ -172,7 +172,7 @@ function PostDetailPage() {
             <Content>
                 <Typography>{post.content}</Typography>
             </Content>
-            {user && user.data.userId !== post.userId && 
+            {user.data?.userId !== post.userId && 
                 <Button variant="contained" style={{backgroundColor:'#777777'}} sx={{ mt: 3, width: 100 }} onClick={applyHandler} >지원하기</Button>
             }
         </PostWrap>
