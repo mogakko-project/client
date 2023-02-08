@@ -11,6 +11,7 @@ import dayjs from "dayjs"
 import axios from 'axios'
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { setGroupStatus } from '../../_actions/group_action';
+import { validDeadline } from '../../CommonFunction'
 
 const TotalWrap = styled.div`
     display: flex;
@@ -137,6 +138,10 @@ function PostFormPage({ test }) {
             return alert('내용을 작성해주세요.')
         }
         
+        if (!validDeadline(deadline)) {
+            return alert('마감일을 오늘 이후로 설정해주세요.')
+        }
+
         var tempTerm =  null
         if (term !== '') {
             tempTerm = term

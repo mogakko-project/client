@@ -9,7 +9,7 @@ import { getPost } from '../../_actions/post_action'
 import { CalendarViewDay } from '@mui/icons-material'
 import Comments from './Sections/Comments'
 import { applyForAdmission } from '../../_actions/group_applicants_action'
-import { calculateDday } from '../../CommonFunction'
+import { calculateDday, validDeadline } from '../../CommonFunction'
 
 const TotalWrap = styled.div`
     display: flex;
@@ -78,14 +78,14 @@ function PostDetailPage() {
     let { postId } = useParams()
 
     const [post, setPost] = useState({})
-    const [dday, setDday] = useState('')
+    const [saveDeadline, setSaveDeadline] = useState(false)
 
     const fetchPost = async () => {
         try {
             const res = await dispatch(getPost(postId))
             setPost(res.payload)
-            setDday(calculateDday(res.payload.deadline))
-        } catch (e) {
+            setSaveDeadline(validDeadline(res.payload.deadline.substring(0, 10)))
+    } catch (e) {
             console.log(e)
         }
     }
@@ -119,7 +119,12 @@ function PostDetailPage() {
                 </GoBack>
                 <TitleWrap>
                     <Typography variant='h3' >{post.title}</Typography>
-                    <Chip label={dday} sx={{ ml: 2 }} />
+                    {(post.groupStatus === 'END_RECRUIT' || post.groupStatus === 'END_GROUP') &&
+                        <Chip label='마감' sx={{ ml: 1 }} variant="outlined"  />
+                    }
+                    {post.groupStatus === 'RECRUIT' &&
+                        <Chip label={calculateDday(post.deadline)} sx={{ ml: 1 }} variant="outlined"  />                            
+                    }
                 </TitleWrap>
                 <AdditionalInfo>
                     <Writer onClick={userProfileHandler}>
@@ -173,7 +178,7 @@ function PostDetailPage() {
                 <Typography>{post.content}</Typography>
             </Content>
             {user.data?.userId !== post.userId && 
-                <Button variant="contained" style={{backgroundColor:'#777777'}} sx={{ mt: 3, width: 100 }} onClick={applyHandler} >지원하기</Button>
+                <Button disabled={post.groupStatus !== 'RECRUIT' || !saveDeadline} variant="contained" style={{backgroundColor:'#777777'}} sx={{ mt: 3, width: 100 }} onClick={applyHandler} >지원하기</Button>
             }
         </PostWrap>
         <Comments postId={postId}/>

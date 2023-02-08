@@ -8,3 +8,12 @@ export function calculateDday(deadline) {
     else if (diffDay < 1) return 'D-day'
     else return 'd-' + diffDay
 }
+
+export const validDeadline = (deadline) => {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    const today = year + '-' + month + '-' + day
+    return deadline > today
+}

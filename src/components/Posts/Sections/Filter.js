@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Autocomplete, TextField, Typography, Button } from '@mui/material';
+import { Autocomplete, TextField, Typography, Button, FormControlLabel, Checkbox } from '@mui/material';
+import { validDeadline } from '../../../CommonFunction'
 
 const FilterWrap = styled.div`
     display: flex;
     flex-direction: column;
     width: 200px;
     min-height: 500px;
+    height: fit-content;
     background: #D9D9D9;
     padding: 20px;
     margin-bottom: 20px;
@@ -25,6 +27,7 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
     const [languages, setLanguages] = useState([])
     const [locations, setLocations] = useState([])
     const [occupations, setOccupations] = useState([])
+    const [onlyRecruiting, setOnlyRecruiting] = useState(false)
 
     const getValues = async () => {
         try {
@@ -79,6 +82,11 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
                 }
                 if (!include) return false;
             }
+            // 모집중만 보기
+            if (onlyRecruiting) {
+                if (post.groupStatus !== 'RECRUIT') return false;
+                if (!validDeadline(post.deadline.substring(0, 10))) return false;
+            }
             return true;
         })
         setFilteredPosts(filteredPosts)
@@ -89,6 +97,10 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
         setSelectedLocations([])
         setSelectedOccupations([])
         setFilteredPosts(posts)
+    }
+
+    const handleChange = (e) => {
+        setOnlyRecruiting(e.target.checked)
     }
 
   return (
@@ -150,6 +162,7 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
             value={selectedOccupations}
             onChange={(event, newValue) => setSelectedOccupations(newValue)}
         />
+        <FormControlLabel control={<Checkbox checked={onlyRecruiting} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }}/>} label="모집중만 보기" sx={{ mt: 1 }} />
         <Buttons>
             <Button variant="contained" style={{backgroundColor:'#777777'}} onClick={applyHandler} >적용</Button>
             <Button variant="contained" style={{backgroundColor:'#C5C0C0'}} onClick={resetHandler} >초기화</Button>

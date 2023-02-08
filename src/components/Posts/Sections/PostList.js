@@ -39,8 +39,12 @@ function PostList({posts, selectHandler}) {
                     <ListItem>
                         <ListItemButton onClick={() => selectHandler(elem.postId)}>
                             <ListItemText primary={elem.title} secondary={elem.nickname}/>
-                            {/* <Typography>{calculateDday(elem.deadline)}</Typography> */}
-                            <Chip label={calculateDday(elem.deadline)} sx={{ ml: 1 }} variant="outlined"  />
+                            {(elem.groupStatus === 'END_RECRUIT' || elem.groupStatus === 'END_GROUP') &&
+                                <Chip label='마감' sx={{ ml: 1 }} variant="outlined"  />
+                            }
+                            {elem.groupStatus === 'RECRUIT' &&
+                                <Chip label={calculateDday(elem.deadline)} sx={{ ml: 1 }} variant="outlined"  />                            
+                            }
                             <MoreInfo>
                                 <Above>
                                     <Values>
