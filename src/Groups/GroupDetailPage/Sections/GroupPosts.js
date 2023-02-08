@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, Avatar } from '@mui/material';
-import { getPostOfType, getStudyPostsOfGroup } from '../../../_actions/post_action'
+import { Divider, Typography, Button, Avatar } from '@mui/material';
+import { getStudyPostsOfGroup } from '../../../_actions/post_action'
 
 const TotalWrap = styled.div`
     margin-top: 50px;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Auth from '../../hoc/auth'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, TextField } from '@mui/material';
+import { Typography, Button, TextField } from '@mui/material';
 import { addPost } from '../../_actions/post_action'
 
 const TotalWrap = styled.div`
@@ -55,7 +55,7 @@ function StudyPostFormPage() {
             type: 'STUDY'
         }
         try {
-            const res = await dispatch(addPost(body))
+            await dispatch(addPost(body))
             alert('등록되었습니다.')
             navigate('/groups/detail/' + groupId)
         } catch (e) {

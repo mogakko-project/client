@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Auth from '../../hoc/auth'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, TextField, Box } from '@mui/material';
-import { addPost, getPostOfUser } from '../../_actions/post_action'
+import { Typography } from '@mui/material';
 import { getGroupListOfUser } from '../../_actions/group_action'
 import GroupElement from './Sections/GroupElement'
 
@@ -36,7 +34,6 @@ const Elemnets = styled.div`
 
 
 function MyPostsPage() {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
     

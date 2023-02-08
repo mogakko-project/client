@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { Autocomplete, TextField, Typography, Button, Avatar, Modal, Box } from '@mui/material';
+import { Typography, Button, Avatar, Modal, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getGroupStatus, getPostIdOfGroup, setGroupStatus } from '../../../_actions/group_action';
+import { getPostIdOfGroup, setGroupStatus } from '../../../_actions/group_action';
 import { getApplicantsOfGroup, acceptApplicantOfGroup } from '../../../_actions/group_applicants_action';
-import { PhonelinkSetupOutlined } from '@mui/icons-material';
 
 const Buttons = styled.div`
     display: flex;
@@ -80,7 +79,7 @@ export default function GroupManaging({ groupId, status, setStatus }) {
             let body = {
                 accept
             }
-            const res = await dispatch(acceptApplicantOfGroup(body, groupId, userId))
+            await dispatch(acceptApplicantOfGroup(body, groupId, userId))
             getApplicants()
             if (accept === true) {
                 alert('승인하였습니다.')

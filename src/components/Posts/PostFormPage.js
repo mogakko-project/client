@@ -3,10 +3,9 @@ import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Autocomplete, Chip, IconButton, Link, Typography, Button, TextField, FormControl, Select, MenuItem, InputLabel  } from '@mui/material';
-import { LocalizationProvider, DatePicker, DesktopDatePicker } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { addPost, updatePost, getPost, getPostOfType } from '../../_actions/post_action'
+import { Divider, Autocomplete, Typography, Button, TextField, FormControl, Select, MenuItem, InputLabel  } from '@mui/material';
+import { LocalizationProvider, DesktopDatePicker } from '@mui/x-date-pickers'
+import { addPost, updatePost, getPost } from '../../_actions/post_action'
 import dayjs from "dayjs"
 import axios from 'axios'
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";

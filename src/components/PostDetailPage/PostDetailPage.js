@@ -3,10 +3,9 @@ import Auth from '../../hoc/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Avatar, Typography, Button } from '@mui/material';
+import { Divider, Chip, Avatar, Typography, Button } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { getPost } from '../../_actions/post_action'
-import { CalendarViewDay } from '@mui/icons-material'
 import Comments from './Sections/Comments'
 import { applyForAdmission } from '../../_actions/group_applicants_action'
 import { calculateDday, validDeadline } from '../../CommonFunction'
@@ -97,7 +96,7 @@ function PostDetailPage() {
 
     const applyHandler = async () => {
         try {
-            const res = await dispatch(applyForAdmission(post.groupId, user.data.userId))
+            await dispatch(applyForAdmission(post.groupId, user.data.userId))
             alert('지원하였습니다.')
         } catch (e) {
             alert(e.response.data.message)

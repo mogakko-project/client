@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { Typography, Button, IconButton, Avatar, Box, Menu, MenuItem, Divider} from '@mui/material';
+import { Typography, Button, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getGroupMeetingList, setMeetingAttendance } from '../../../_actions/meeting_action';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -58,12 +58,6 @@ const AttendanceList = styled.div`
     padding: 5px;
 `
 
-const MenuWrap = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-`
-
 export default function GroupMeeting({ groupId, status }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -100,7 +94,7 @@ export default function GroupMeeting({ groupId, status }) {
             attendance
         }
         try {
-            const res = await dispatch(setMeetingAttendance(body, groupId, meetings[meetingIndex].meetingId, user.data.userId))
+            await dispatch(setMeetingAttendance(body, groupId, meetings[meetingIndex].meetingId, user.data.userId))
             if (attendance) {
                 alert('참석 투표하셨습니다.')
             }

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, TextField, Box, Avatar } from '@mui/material';
+import { useNavigate } from 'react-router-dom'
+import { Typography, Avatar } from '@mui/material';
 
 const TotalWrap = styled.div`
     display: flex;

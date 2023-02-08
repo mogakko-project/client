@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Button, IconButton, Avatar, Box, Menu, MenuItem, Divider, Modal, TextField } from '@mui/material';
+import { Typography, Button, Box, Modal, TextField } from '@mui/material';
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux';
 import { createGroupMeeting } from '../../../_actions/meeting_action';
@@ -72,7 +72,7 @@ function MeetingForm({ groupId, getMeetings, status }) {
             place
         }
         try {
-            const res = await dispatch(createGroupMeeting(body, groupId))
+            await dispatch(createGroupMeeting(body, groupId))
             alert('모임을 생성하였습니다.')
             getMeetings()
             setOpen(false);

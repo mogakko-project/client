@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { Autocomplete, TextField, Typography, Button, Avatar, Modal, Box } from '@mui/material';
+import { TextField, Typography, Button, Avatar, Modal, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getGroupMembers } from '../../../_actions/group_members_action';
 import GradeIcon from '@mui/icons-material/Grade';
@@ -95,7 +95,7 @@ export default function GroupMembers({ groupId, status }) {
             content: evaluationContent
         }
         try {
-            const res = await dispatch(addEvaluation(body, groupId, memberId))
+            await dispatch(addEvaluation(body, groupId, memberId))
             alert('평가하였습니다.')
             handleClose()
         } catch (e) {

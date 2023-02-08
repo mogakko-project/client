@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCommentsOfPost, addComment } from '../../../_actions/comment_action'
 import { useNavigate } from 'react-router-dom'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Avatar, Typography, Button, TextField } from '@mui/material';
-
+import { Divider, Avatar, Typography, Button, TextField } from '@mui/material';
 
 const TotalWrap = styled.div`
     margin-top: 100px;

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, Avatar } from '@mui/material';
-import { getPostOfType, getStudyPostsOfGroup } from '../../../_actions/post_action'
+import { Divider, Typography, Avatar } from '@mui/material';
 import { getEvaluation } from '../../../_actions/evaluation_action';
 
 const TotalWrap = styled.div`
@@ -21,9 +19,7 @@ const Evaluation = styled.div`
 `
 
 function Evaluations({ userId }) {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user)
 
     const [evaluations, setEvaluations] = useState([])
 

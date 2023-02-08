@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button, Avatar } from '@mui/material';
-import { getPostOfType, getPost } from '../../_actions/post_action'
+import { Divider, Typography, Avatar } from '@mui/material';
+import { getPost } from '../../_actions/post_action'
 import Comments from '../../components/PostDetailPage/Sections/Comments'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 

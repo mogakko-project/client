@@ -3,9 +3,7 @@ import Auth from '../../hoc/auth'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, ListItem, ListItemText, ListItemButton, Divider, Chip, IconButton, Link, Typography, Button } from '@mui/material';
-import PeopleIcon from '@mui/icons-material/People';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography, Button } from '@mui/material';
 import PostList from './Sections/PostList'
 import { getPostOfType } from '../../_actions/post_action'
 import Filter from './Sections/Filter'
