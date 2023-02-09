@@ -96,6 +96,7 @@ export default function Filter({selectedLanguages, setSelectedLanguages, selecte
         setSelectedLanguages([])
         setSelectedLocations([])
         setSelectedOccupations([])
+        setOnlyRecruiting(false)
         setFilteredPosts(posts)
     }
 

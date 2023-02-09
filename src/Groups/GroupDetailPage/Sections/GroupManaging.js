@@ -61,14 +61,19 @@ export default function GroupManaging({ groupId, status, setStatus }) {
     const handleClose = () => setOpen(false);
 
     const changeGroupStatusHandler = async (groupStatus) => {
+        if (groupStatus === 'END_GROUP' && !window.confirm('정말 그룹을 종료하시겠습니까?')) {
+            return
+        }
         let body = {
             groupStatus
         }
         try {
             const res = await dispatch(setGroupStatus(body, groupId))
             setStatus(res.payload.groupStatus)
-            alert('모집 마감하였습니다.')
-            // location.reload()
+            if (groupStatus === 'END_RECRUIT')
+                alert('모집 마감하였습니다.')
+            else if (groupStatus === 'END_GROUP')
+                alert('그룹을 종료하였습니다.')
         } catch (e) {
 			alert(e.response.data.message)
         }
@@ -122,7 +127,7 @@ export default function GroupManaging({ groupId, status, setStatus }) {
         }
         {status !== 'END_GROUP' && 
             <>
-                <Button variant="contained" style={{backgroundColor:'#C5C0C0', marginLeft: '5px' }} onClick={() => changeGroupStatusHandler('END_GROUP')} >모임 종료</Button>
+                <Button variant="contained" style={{backgroundColor:'#C5C0C0', marginLeft: '5px' }} onClick={() => changeGroupStatusHandler('END_GROUP')} >그룹 종료</Button>
                 <Button variant="contained" style={{backgroundColor:'#C5C0C0', marginLeft: '5px' }} onClick={handleOpen} >그룹 신청자</Button>
             </>
         }
