@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mogakko-project/client/static/css/main.e6c13ad2.css",
+    "main.js": "/mogakko-project/client/static/js/main.9b5a57b2.js",
+    "static/js/787.4b1253d3.chunk.js": "/mogakko-project/client/static/js/787.4b1253d3.chunk.js",
+    "index.html": "/mogakko-project/client/index.html",
+    "main.e6c13ad2.css.map": "/mogakko-project/client/static/css/main.e6c13ad2.css.map",
+    "main.9b5a57b2.js.map": "/mogakko-project/client/static/js/main.9b5a57b2.js.map",
+    "787.4b1253d3.chunk.js.map": "/mogakko-project/client/static/js/787.4b1253d3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.9b5a57b2.js"
+  ]
+}
