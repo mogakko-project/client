@@ -21,7 +21,7 @@ import MyGroupsPage from './components/MyGroupsPage/MyGroupsPage'
 
 function App() {
   return (
-   <BrowserRouter>
+   <BrowserRouter basename={process.env.PUBLIC_URL}>
       <NavBar />
       <div style={{ minHeight: 'calc(100vh - 80px)' }}>
         <Routes>
